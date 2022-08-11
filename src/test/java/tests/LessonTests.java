@@ -18,11 +18,10 @@ import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
-public class LessonTests {
-
-    String authCookieName = "NOPCOMMERCE.AUTH",
-            email = "vbdv@feferf.ru",
-            password = "itLf7@U@Bf6khGH";
+public class LessonTests extends TestBase {
+    static String authCookieName = "NOPCOMMERCE.AUTH";
+    String email = "vbdv@feferf.ru";
+    String password = "itLf7@U@Bf6khGH";
 
     @BeforeAll
     static void setUp() {
@@ -209,7 +208,7 @@ public class LessonTests {
     }
 
     @Step("Get authorization cookie")
-    String getAuthCookie(String email, String password) {
+    static String getAuthCookie(String email, String password) {
         return given()
 //                .filter(new AllureRestAssured())
                 .filter(withCustomTemplates())
