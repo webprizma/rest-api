@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'io.qameta.allure' version '2.9.6'
+    id 'io.freefair.lombok' version '6.0.0-m2'
 }
 
 repositories {
@@ -39,7 +40,8 @@ dependencies {
             "org.junit.jupiter:junit-jupiter:$junitVersion",
             "org.slf4j:slf4j-simple:$slf4jVersion",
             "com.github.javafaker:javafaker:$javaFakerVersion",
-            "org.aeonbits.owner:owner:$ownerVersion"
+            "org.aeonbits.owner:owner:$ownerVersion",
+            'org.assertj:assertj-core:3.23.1'
     )
 }
 
