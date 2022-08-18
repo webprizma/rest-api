@@ -7,9 +7,10 @@ import org.aeonbits.owner.ConfigFactory;
 public class TestData {
     CustomerConfig config = ConfigFactory.create(CustomerConfig.class);
     Faker faker = new Faker();
-    String firstName = faker.name().firstName(),
+
+    final String firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
-            email = faker.internet().emailAddress(),
+            email = config.email(),
             password = config.password(),
             requestVerificationTokenCookie = config.requestVerificationTokenCookie(),
             requestVerificationTokenParam = config.requestVerificationTokenParam(),
@@ -20,4 +21,56 @@ public class TestData {
             profileURL = config.profileURL(),
             newFirstName = faker.name().firstName(),
             newLastName = faker.name().lastName();
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public  String getEmail() {
+        return email;
+    }
+
+    public  String getPassword() {
+        return password;
+    }
+
+    public String getRequestVerificationTokenCookie() {
+        return requestVerificationTokenCookie;
+    }
+
+    public String getRequestVerificationTokenParam() {
+        return requestVerificationTokenParam;
+    }
+
+    public String getRegistrationURL() {
+        return registrationURL;
+    }
+
+    public String getLoginURL() {
+        return loginURL;
+    }
+
+    public String getAuthCookieName() {
+        return authCookieName;
+    }
+
+    public String getMinimalContent() {
+        return minimalContent;
+    }
+
+    public String getProfileURL() {
+        return profileURL;
+    }
+
+    public String getNewFirstName() {
+        return newFirstName;
+    }
+
+    public String getNewLastName() {
+        return newLastName;
+    }
 }
