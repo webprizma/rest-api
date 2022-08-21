@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 import static specs.APISpecs.*;
 
 public class ReqresInModelsAndSpecsTests {
@@ -32,6 +33,20 @@ public class ReqresInModelsAndSpecsTests {
         assertThat(response.getTotal()).isEqualTo(12);
     }
 
+    @Test
+    void getSingleUserTest() {
+        SingleUserDataModel response = given()
+                .spec(logRequestSpec)
+                .when()
+                .get(Paths.USERS.url + "3")
+                .then()
+                .spec(logResponseSpec)
+                .spec(status200ResponseSpec)
+                .extract()
+                .as(SingleUserDataModel.class);
+
+        assertThat(response.getData().getEmail()).isEqualTo("emma.wong@reqres.in");
+    }
     @Test
     void getSingleUserNotFoundTest() {
         given()
