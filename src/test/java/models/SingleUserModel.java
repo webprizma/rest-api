@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class SingleUserModel {
-    private String dataEmail;
+    private String email;
 }
