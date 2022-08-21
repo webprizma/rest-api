@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static specs.APISpecs.*;
 
@@ -20,42 +21,15 @@ public class ReqresInModelsAndSpecsTests {
 
     @Test
     void getListUsersTest() {
-        UserListModel response = given()
+        given()
                 .spec(logRequestSpec)
                 .when()
                 .get(Paths.USERS.url + "?page=2")
                 .then()
                 .spec(logResponseSpec)
                 .spec(status200ResponseSpec)
-                .extract()
-                .as(UserListModel.class);
-
-        assertThat(response.getTotal()).isEqualTo(12);
-    }
-
-    @Test
-    void getSingleUserTest() {
-        SingleUserDataModel response = given()
-                .spec(logRequestSpec)
-                .when()
-                .get(Paths.USERS.url + "3")
-                .then()
-                .spec(logResponseSpec)
-                .spec(status200ResponseSpec)
-                .extract()
-                .as(SingleUserDataModel.class);
-
-        assertThat(response.getData().getEmail()).isEqualTo("emma.wong@reqres.in");
-    }
-    @Test
-    void getSingleUserNotFoundTest() {
-        given()
-                .spec(logRequestSpec)
-                .when()
-                .get(Paths.USERS.url + "23")
-                .then()
-                .spec(logResponseSpec)
-                .spec(status404ResponseSpec);
+                .body("data.findAll{it.email =~/.*?@reqres.in/}.email.flatten()", hasItem("byron.fields@reqres.in"))
+                .body("data.findAll{it.first_name =~ /\\D+/}.first_name.flatten()", hasItem("Lindsay"));
     }
 
     @Test
@@ -98,17 +72,6 @@ public class ReqresInModelsAndSpecsTests {
                 .as(UserModel.class);
 
         assertThat(response.getJob()).isEqualTo("chosen one");
-    }
-
-    @Test
-    void deleteDeleteUserTest() {
-        given()
-                .spec(logRequestSpec)
-                .when()
-                .delete(Paths.USERS.url + "386")
-                .then()
-                .spec(logResponseSpec)
-                .spec(status204ResponseSpec);
     }
 
     @Test
